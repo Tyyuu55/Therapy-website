@@ -1209,7 +1209,8 @@ function GetInTouch() {
                 style={{ color: '#1f2937' }}
               />
               <p className="mt-1 text-xs text-[#A4926B]/70">
-                Let us know when you're typically available
+                Let us know when you&apos;re typically available
+
               </p>
               {errors.preferredTime && (
                 <p className="mt-1 text-sm text-red-500">
