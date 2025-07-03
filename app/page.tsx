@@ -756,16 +756,16 @@ function LakeInspirationalQuote() {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           {/* Main Quote */}
-          <blockquote 
-            className="text-white text-2xl md:text-3xl lg:text-4xl font-light leading-tight mb-8"
-            style={{ 
-              fontFamily: 'freight-display-pro, serif',
-              letterSpacing: '-0.01em',
-              textShadow: '0 3px 6px rgba(0,0,0,0.5)'
-            }}
-          >
-            "The curious paradox is that when I accept myself just as I am, then I can change."
-          </blockquote>
+          <blockquote              
+  className="text-white text-2xl md:text-3xl lg:text-4xl font-light leading-tight mb-8"             
+  style={{                
+    fontFamily: 'freight-display-pro, serif',               
+    letterSpacing: '-0.01em',               
+    textShadow: '0 3px 6px rgba(0,0,0,0.5)'             
+  }}           
+>             
+  &ldquo;The curious paradox is that when I accept myself just as I am, then I can change.&rdquo;           
+</blockquote>
           
           {/* Attribution */}
           <div className={`transition-all duration-1000 ease-out delay-500 ${
@@ -1050,26 +1050,26 @@ function GetInTouch() {
 
     // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        preferredTime: '',
-        preferredMethod: '',
-        agreeToContact: false
-      });
-      
-      alert('Thank you for your message! Dr. Blake will be in touch with you soon.');
-    } catch (error) {
-      alert('There was an error sending your message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  // Reset form after successful submission
+  setFormData({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    preferredTime: '',
+    preferredMethod: '',
+    agreeToContact: false
+  });
+  
+  alert('Thank you for your message! Dr. Blake will be in touch with you soon.');
+} catch (error) {
+  console.error('Form submission error:', error);
+  alert('There was an error sending your message. Please try again.');
+} finally {
+  setIsSubmitting(false);
+}
 
   return (
     <section 
