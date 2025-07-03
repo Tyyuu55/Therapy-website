@@ -958,11 +958,11 @@ function GetInTouch() {
     message: '',
     preferredTime: '',
     preferredMethod: '',
-    agreeToContact: false
+    agreeToContact: false,
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -973,29 +973,22 @@ function GetInTouch() {
       },
       {
         threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -50px 0px',
       }
     );
 
-    const currentRef = sectionRef.current; // Copy ref to variable
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    const currentRef = sectionRef.current;
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (currentRef) { // Use the copied variable
-        observer.unobserve(currentRef);
-      }
+      if (currentRef) observer.unobserve(currentRef);
     };
   }, []);
 
   const validateForm = () => {
-    const newErrors = {};
+    const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
 
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
@@ -1003,121 +996,125 @@ function GetInTouch() {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    }
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
 
-    if (!formData.message.trim()) {
+    if (!formData.message.trim())
       newErrors.message = 'Please tell us what brings you here';
-    }
 
-    if (!formData.preferredTime.trim()) {
+    if (!formData.preferredTime.trim())
       newErrors.preferredTime = 'Preferred contact time is required';
-    }
 
-    if (!formData.agreeToContact) {
+    if (!formData.agreeToContact)
       newErrors.agreeToContact = 'You must agree to be contacted';
-    }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
 
-    // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+
+    if (!validateForm()) return;
 
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  // Reset form after successful submission
-  setFormData({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    preferredTime: '',
-    preferredMethod: '',
-    agreeToContact: false
-  });
-  
-  alert('Thank you for your message! Dr. Blake will be in touch with you soon.');
-} catch (error) {
-  console.error('Form submission error:', error);
-  alert('There was an error sending your message. Please try again.');
-} finally {
-  setIsSubmitting(false);
-}
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        preferredTime: '',
+        preferredMethod: '',
+        agreeToContact: false,
+      });
+
+      alert(
+        'Thank you for your message! Dr. Blake will be in touch with you soon.'
+      );
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('There was an error sending your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="bg-[#F5F3ED] py-24 px-8 md:px-16"
       id="contact"
     >
       <div className="max-w-2xl mx-auto">
         {/* Section Title */}
-        <div className={`text-center mb-12 transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <h2 
+        <div
+          className={`text-center mb-12 transition-all duration-1000 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h2
             className="text-3xl md:text-4xl text-[#A4926B] font-normal leading-tight mb-4"
-            style={{ 
+            style={{
               fontFamily: 'freight-display-pro, serif',
               letterSpacing: '-0.02em',
-              fontWeight: '400'
+              fontWeight: '400',
             }}
           >
             Get In Touch
           </h2>
-          <p 
+          <p
             className="text-[#A4926B] leading-[1.6] max-w-lg mx-auto"
-            style={{ 
-              fontFamily: 'freight-sans-pro, sans-serif', 
+            style={{
+              fontFamily: 'freight-sans-pro, sans-serif',
               fontSize: '16px',
               fontWeight: '300',
-              letterSpacing: '0.3px'
+              letterSpacing: '0.3px',
             }}
           >
-            Simply fill out the brief fields below and Dr. Blake will be in touch with you soon, usually within one business day. This form is safe, private, and completely free.
+            Simply fill out the brief fields below and Dr. Blake will be in touch
+            with you soon, usually within one business day. This form is safe,
+            private, and completely free.
           </p>
         </div>
 
         {/* Contact Form */}
-        <div className={`bg-white rounded-lg shadow-lg p-8 md:p-10 transition-all duration-1000 ease-out delay-300 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div
+          className={`bg-white rounded-lg shadow-lg p-8 md:p-10 transition-all duration-1000 ease-out delay-300 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name Field */}
             <div>
-              <label 
+              <label
                 htmlFor="name"
                 className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 Name
@@ -1131,9 +1128,9 @@ function GetInTouch() {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
                   errors.name ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
                 placeholder="Your name"
               />
@@ -1144,12 +1141,12 @@ function GetInTouch() {
 
             {/* Email Field */}
             <div>
-              <label 
+              <label
                 htmlFor="email"
                 className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 Email
@@ -1163,9 +1160,9 @@ function GetInTouch() {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
                   errors.email ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
                 placeholder="you@example.com"
               />
@@ -1176,12 +1173,12 @@ function GetInTouch() {
 
             {/* Phone Field */}
             <div>
-              <label 
+              <label
                 htmlFor="phone"
                 className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 Phone
@@ -1195,9 +1192,9 @@ function GetInTouch() {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
                   errors.phone ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
                 placeholder="(555) 234-5678"
               />
@@ -1208,12 +1205,12 @@ function GetInTouch() {
 
             {/* Message Field */}
             <div>
-              <label 
+              <label
                 htmlFor="message"
                 className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 What brings you here?
@@ -1227,9 +1224,9 @@ function GetInTouch() {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 resize-vertical ${
                   errors.message ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
                 placeholder="How can I help you?"
               />
@@ -1240,12 +1237,12 @@ function GetInTouch() {
 
             {/* Preferred Time Field */}
             <div>
-              <label 
+              <label
                 htmlFor="preferredTime"
                 className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 Preferred time to reach you
@@ -1259,19 +1256,20 @@ function GetInTouch() {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
                   errors.preferredTime ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
                 placeholder="e.g. Mornings, Afternoons, Evenings, Weekends"
               />
-              <p 
+              <p
                 className="mt-1 text-xs text-[#A4926B]/70"
-                style={{ 
-                  fontFamily: 'freight-sans-pro, sans-serif'
+                style={{
+                  fontFamily: 'freight-sans-pro, sans-serif',
                 }}
               >
-                Let us know when you&apos;re typically available for a call or consultation
+                Let us know when you&apos;re typically available for a call or
+                consultation
               </p>
               {errors.preferredTime && (
                 <p className="mt-1 text-sm text-red-500">{errors.preferredTime}</p>
@@ -1280,12 +1278,12 @@ function GetInTouch() {
 
             {/* Preferred Contact Method */}
             <div>
-              <label 
+              <label
                 htmlFor="preferredMethod"
                 className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 Preferred Contact Method
@@ -1296,9 +1294,9 @@ function GetInTouch() {
                 value={formData.preferredMethod}
                 onChange={handleInputChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px'
+                  fontSize: '16px',
                 }}
               >
                 <option value="">Select preferred method</option>
@@ -1318,12 +1316,12 @@ function GetInTouch() {
                 onChange={handleInputChange}
                 className="mt-1 h-4 w-4 text-[#A4926B] focus:ring-[#A4926B]/50 border-gray-300 rounded"
               />
-              <label 
+              <label
                 htmlFor="agreeToContact"
                 className="text-sm text-[#A4926B] leading-relaxed"
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 I agree to be contacted by Dr. Blake regarding my inquiry
@@ -1343,10 +1341,10 @@ function GetInTouch() {
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-[#5C7A7A] hover:bg-[#4A6565] focus:outline-none focus:ring-2 focus:ring-[#5C7A7A]/50 focus:ring-offset-2'
                 }`}
-                style={{ 
+                style={{
                   fontFamily: 'freight-sans-pro, sans-serif',
                   fontSize: '16px',
-                  letterSpacing: '0.02em'
+                  letterSpacing: '0.02em',
                 }}
               >
                 {isSubmitting ? 'Sending...' : 'Submit'}
@@ -1354,13 +1352,14 @@ function GetInTouch() {
             </div>
 
             {/* Privacy Notice */}
-            <p 
+            <p
               className="text-xs text-[#A4926B]/70 text-center leading-relaxed pt-2"
-              style={{ 
-                fontFamily: 'freight-sans-pro, sans-serif'
+              style={{
+                fontFamily: 'freight-sans-pro, sans-serif',
               }}
             >
-              By clicking submit you consent to receive texts and emails from Dr. Serena Blake
+              By clicking submit you consent to receive texts and emails from Dr.
+              Serena Blake
             </p>
           </form>
         </div>
