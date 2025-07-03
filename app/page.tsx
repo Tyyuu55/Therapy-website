@@ -949,6 +949,8 @@ function FAQ() {
   );
 }
 // Get In Touch Section Component
+
+
 function GetInTouch() {
   const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -1008,30 +1010,29 @@ function GetInTouch() {
       newErrors.agreeToContact = 'You must agree to be contacted';
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (
-  e: React.ChangeEvent<
-    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-  >
-) => {
-  const { name, value, type } = e.target;
-  const checked = (e.target as HTMLInputElement).checked;
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
 
-  setFormData((prev) => ({
-    ...prev,
-    [name]: type === 'checkbox' ? checked : value,
-  }));
-
-  if (errors[name]) {
-    setErrors((prev) => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: '',
+      [name]: type === 'checkbox' ? checked : value,
     }));
-  }
-};
+
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: '',
+      }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -1071,7 +1072,6 @@ function GetInTouch() {
       id="contact"
     >
       <div className="max-w-2xl mx-auto">
-        {/* Section Title */}
         <div
           className={`text-center mb-12 transition-all duration-1000 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -1096,29 +1096,20 @@ function GetInTouch() {
               letterSpacing: '0.3px',
             }}
           >
-            Simply fill out the brief fields below and Dr. Blake will be in touch
-            with you soon, usually within one business day. This form is safe,
-            private, and completely free.
+            Simply fill out the brief fields below and Dr. Blake will be in
+            touch with you soon, usually within one business day. This form is
+            safe, private, and completely free.
           </p>
         </div>
 
-        {/* Contact Form */}
         <div
           className={`bg-white rounded-lg shadow-lg p-8 md:p-10 transition-all duration-1000 ease-out delay-300 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Field */}
             <div>
-              <label
-                htmlFor="name"
-                className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                 Name
               </label>
               <input
@@ -1127,30 +1118,19 @@ function GetInTouch() {
                 type="text"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors text-gray-900 bg-white ${
                   errors.name ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                }}
                 placeholder="Your name"
+                style={{ color: '#1f2937' }}
               />
               {errors.name && (
                 <p className="mt-1 text-sm text-red-500">{errors.name}</p>
               )}
             </div>
 
-            {/* Email Field */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email
               </label>
               <input
@@ -1159,30 +1139,19 @@ function GetInTouch() {
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors text-gray-900 bg-white ${
                   errors.email ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                }}
                 placeholder="you@example.com"
+                style={{ color: '#1f2937' }}
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-red-500">{errors.email}</p>
               )}
             </div>
 
-            {/* Phone Field */}
             <div>
-              <label
-                htmlFor="phone"
-                className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                 Phone
               </label>
               <input
@@ -1191,30 +1160,19 @@ function GetInTouch() {
                 type="tel"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors text-gray-900 bg-white ${
                   errors.phone ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                }}
                 placeholder="(555) 234-5678"
+                style={{ color: '#1f2937' }}
               />
               {errors.phone && (
                 <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
               )}
             </div>
 
-            {/* Message Field */}
             <div>
-              <label
-                htmlFor="message"
-                className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                 What brings you here?
               </label>
               <textarea
@@ -1223,30 +1181,19 @@ function GetInTouch() {
                 value={formData.message}
                 onChange={handleInputChange}
                 rows={4}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 resize-vertical ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors text-gray-900 bg-white resize-vertical ${
                   errors.message ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                }}
                 placeholder="How can I help you?"
+                style={{ color: '#1f2937' }}
               />
               {errors.message && (
                 <p className="mt-1 text-sm text-red-500">{errors.message}</p>
               )}
             </div>
 
-            {/* Preferred Time Field */}
             <div>
-              <label
-                htmlFor="preferredTime"
-                className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-2">
                 Preferred time to reach you
               </label>
               <input
@@ -1255,39 +1202,24 @@ function GetInTouch() {
                 type="text"
                 value={formData.preferredTime}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200 ${
+                className={`w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors text-gray-900 bg-white ${
                   errors.preferredTime ? 'border-red-400' : 'border-gray-300'
                 }`}
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                }}
                 placeholder="e.g. Mornings, Afternoons, Evenings, Weekends"
+                style={{ color: '#1f2937' }}
               />
-              <p
-                className="mt-1 text-xs text-[#A4926B]/70"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                }}
-              >
-                Let us know when you&apos;re typically available for a call or
-                consultation
+              <p className="mt-1 text-xs text-[#A4926B]/70">
+                Let us know when you're typically available
               </p>
               {errors.preferredTime && (
-                <p className="mt-1 text-sm text-red-500">{errors.preferredTime}</p>
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.preferredTime}
+                </p>
               )}
             </div>
 
-            {/* Preferred Contact Method */}
             <div>
-              <label
-                htmlFor="preferredMethod"
-                className="block text-[#A4926B] text-sm font-medium mb-2"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="preferredMethod" className="block text-sm font-medium text-gray-700 mb-2">
                 Preferred Contact Method
               </label>
               <select
@@ -1295,11 +1227,8 @@ function GetInTouch() {
                 name="preferredMethod"
                 value={formData.preferredMethod}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors duration-200"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                }}
+                className="w-full px-4 py-3 border rounded-md focus:ring-2 focus:ring-[#A4926B]/50 focus:border-[#A4926B] transition-colors text-gray-900 bg-white border-gray-300"
+                style={{ color: '#1f2937' }}
               >
                 <option value="">Select preferred method</option>
                 <option value="phone">Phone Call</option>
@@ -1308,7 +1237,6 @@ function GetInTouch() {
               </select>
             </div>
 
-            {/* Agreement Checkbox */}
             <div className="flex items-start space-x-3">
               <input
                 id="agreeToContact"
@@ -1318,14 +1246,7 @@ function GetInTouch() {
                 onChange={handleInputChange}
                 className="mt-1 h-4 w-4 text-[#A4926B] focus:ring-[#A4926B]/50 border-gray-300 rounded"
               />
-              <label
-                htmlFor="agreeToContact"
-                className="text-sm text-[#A4926B] leading-relaxed"
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  letterSpacing: '0.02em',
-                }}
-              >
+              <label htmlFor="agreeToContact" className="block text-sm font-medium text-gray-700">
                 I agree to be contacted by Dr. Blake regarding my inquiry
               </label>
             </div>
@@ -1333,7 +1254,6 @@ function GetInTouch() {
               <p className="text-sm text-red-500">{errors.agreeToContact}</p>
             )}
 
-            {/* Submit Button */}
             <div className="pt-4">
               <button
                 type="submit"
@@ -1343,25 +1263,14 @@ function GetInTouch() {
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-[#5C7A7A] hover:bg-[#4A6565] focus:outline-none focus:ring-2 focus:ring-[#5C7A7A]/50 focus:ring-offset-2'
                 }`}
-                style={{
-                  fontFamily: 'freight-sans-pro, sans-serif',
-                  fontSize: '16px',
-                  letterSpacing: '0.02em',
-                }}
               >
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
             </div>
 
-            {/* Privacy Notice */}
-            <p
-              className="text-xs text-[#A4926B]/70 text-center leading-relaxed pt-2"
-              style={{
-                fontFamily: 'freight-sans-pro, sans-serif',
-              }}
-            >
-              By clicking submit you consent to receive texts and emails from Dr.
-              Serena Blake
+            <p className="text-xs text-[#A4926B]/70 text-center pt-2">
+              By clicking submit you consent to receive texts and emails from
+              Dr. Serena Blake
             </p>
           </form>
         </div>
@@ -1369,6 +1278,7 @@ function GetInTouch() {
     </section>
   );
 }
+
 // Footer Component
 function Footer() {
   return (
