@@ -1392,7 +1392,7 @@ function Footer() {
         {/* Contact Information */}
         <div className="space-y-4 mb-8">
           <p 
-            style={{ 
+            style={{
               fontFamily: 'freight-sans-pro, sans-serif',
               fontStyle: 'normal',
               fontWeight: '300',
@@ -1411,7 +1411,7 @@ function Footer() {
           </p>
           
           <p 
-            style={{ 
+            style={{
               fontFamily: 'freight-sans-pro, sans-serif',
               fontStyle: 'normal',
               fontWeight: '300',
@@ -1430,7 +1430,7 @@ function Footer() {
           </p>
           
           <p 
-            style={{ 
+            style={{
               fontFamily: 'freight-sans-pro, sans-serif',
               fontStyle: 'normal',
               fontWeight: '300',
@@ -1443,12 +1443,55 @@ function Footer() {
           </p>
         </div>
 
+        {/* Office Hours */}
+        <div className="mb-8">
+          <h4 
+            style={{
+              fontFamily: 'freight-sans-pro, sans-serif',
+              fontStyle: 'normal',
+              fontWeight: '400',
+              fontSize: '20px',
+              lineHeight: '32px',
+              color: 'rgb(164, 146, 107)',
+              marginBottom: '16px'
+            }}
+          >
+            Office Hours
+          </h4>
+          <div className="space-y-2">
+            <p 
+              style={{
+                fontFamily: 'freight-sans-pro, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: '300',
+                fontSize: '18px',
+                lineHeight: '32px',
+                color: 'rgb(164, 146, 107)'
+              }}
+            >
+              In-person: Tue & Thu, 10 AM–6 PM
+            </p>
+            <p 
+              style={{
+                fontFamily: 'freight-sans-pro, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: '300',
+                fontSize: '18px',
+                lineHeight: '32px',
+                color: 'rgb(164, 146, 107)'
+              }}
+            >
+              Virtual via Zoom: Mon, Wed & Fri, 1 PM–5 PM
+            </p>
+          </div>
+        </div>
+
         {/* Navigation Links */}
         <div className="flex justify-center space-x-8 mb-8">
           <a 
             href="#about"
             className="hover:opacity-80 transition-opacity duration-200 underline"
-            style={{ 
+            style={{
               fontFamily: 'freight-sans-pro, sans-serif',
               fontStyle: 'normal',
               fontWeight: '300',
@@ -1462,7 +1505,7 @@ function Footer() {
           <a 
             href="#contact"
             className="hover:opacity-80 transition-opacity duration-200 underline"
-            style={{ 
+            style={{
               fontFamily: 'freight-sans-pro, sans-serif',
               fontStyle: 'normal',
               fontWeight: '300',
@@ -1473,13 +1516,12 @@ function Footer() {
           >
             Contact
           </a>
-          
         </div>
 
         {/* Copyright */}
         <div className="border-t pt-6" style={{ borderColor: 'rgba(164, 146, 107, 0.2)' }}>
           <p 
-            style={{ 
+            style={{
               fontFamily: 'freight-sans-pro, sans-serif',
               fontStyle: 'normal',
               fontWeight: '300',
@@ -1496,7 +1538,6 @@ function Footer() {
     </footer>
   );
 }
-
 export default function Page() {
   return (
     <div>
