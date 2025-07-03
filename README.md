@@ -1,6 +1,6 @@
 # 🧠 Therapy Website 
 
-🔗 **Live Demo**: [https://therapy-website-7b3c-fuof6k2ql-shreeya-khatris-projects.vercel.app](https://therapy-website-6sl9.vercel.app/)
+🔗 **Live Demo**: (https://therapy-website-6sl9.vercel.app/)
 
 ## 📌 About
 
