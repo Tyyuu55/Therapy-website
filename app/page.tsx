@@ -1,9 +1,11 @@
 'use client';
+
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';  // Import Next.js Image
 
 // Hero
 function Hero() {
-  const videoRef = useRef(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -54,14 +56,16 @@ function Hero() {
           <div className="flex items-center">
             {/* Logo - Fixed Mobile Sizing */}
             <div className="flex-shrink-0">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Dr. Serena Blake Psychology Logo"
-                className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain"
-                style={{ 
+                width={300}
+                height={96}
+                className="object-contain"
+                style={{
                   minHeight: '64px',
                   minWidth: '150px',
-                  maxWidth: '300px'
+                  maxWidth: '300px',
                 }}
               />
             </div>
@@ -117,11 +121,10 @@ function Hero() {
   );
 }
 
-
-
+// About
 function About() {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -132,23 +135,24 @@ function About() {
       },
       {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -50px 0px',
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSection) {
+        observer.unobserve(currentSection);
       }
     };
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="bg-white py-12 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16"
       id="about"
@@ -156,149 +160,139 @@ function About() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-center">
           <div className="max-w-5xl w-full">
-            {/* Mobile Layout - Title First, Then Content */}
+            {/* Mobile Layout */}
             <div className="lg:hidden">
               {/* Title */}
-              <div className={`mb-8 sm:mb-12 md:mb-16 transition-all duration-600 ease-out ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                <h2 
-                  className="text-2xl sm:text-3xl text-[#A4926B] font-normal leading-tight text-center" 
-                  style={{ 
+              <div
+                className={`mb-8 sm:mb-12 md:mb-16 transition-all duration-600 ease-out ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <h2
+                  className="text-2xl sm:text-3xl text-[#A4926B] font-normal leading-tight text-center"
+                  style={{
                     fontFamily: 'freight-display-pro, serif',
                     letterSpacing: '-0.02em',
-                    fontWeight: '400'
+                    fontWeight: '400',
                   }}
                 >
                   About Dr. Serena Blake
                 </h2>
               </div>
-              
+
               {/* Image */}
-              <div className={`relative transition-all duration-800 ease-out delay-200 mb-8 ${
-                isVisible ? 'opacity-100' : 'opacity-0'
-              }`}>
+              <div
+                className={`relative transition-all duration-800 ease-out delay-200 mb-8 ${
+                  isVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
                 <div className="relative overflow-hidden w-full max-w-[300px] sm:max-w-[350px] md:max-w-[400px] aspect-[2/3] mx-auto">
-                  <img
+                  <Image
                     src="/girl.jpg"
                     alt="Dr. Serena Blake"
-                    className="w-full h-full object-cover rounded-lg shadow-md"
+                    width={400}
+                    height={600}
+                    className="rounded-lg shadow-md object-cover"
                   />
                 </div>
               </div>
-              
+
               {/* Text Content */}
-              <div className={`space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-600 ease-out ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                <div 
-                  className="space-y-4 sm:space-y-6 text-[#A4926B] leading-[1.6]" 
-                  style={{ 
-                    fontFamily: 'freight-sans-pro, sans-serif', 
+              <div
+                className={`space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-600 ease-out ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <div
+                  className="space-y-4 sm:space-y-6 text-[#A4926B] leading-[1.6]"
+                  style={{
+                    fontFamily: 'freight-sans-pro, sans-serif',
                     fontSize: '14px',
                     fontWeight: '300',
-                    letterSpacing: '0.3px'
+                    letterSpacing: '0.3px',
                   }}
                 >
                   <p className="text-sm sm:text-base">
-                    Finding time and opportunities to care for ourselves can be incredibly 
-                    challenging in today's busy and demanding world. I believe therapy 
-                    offers a dedicated space for self-care, providing the support and tools 
-                    needed to improve this essential practice. Therapy can help 
-                    individuals identify and clarify their goals, values, and the various 
-                    elements that contribute to their well-being, recognizing that these 
-                    aspects vary from person to person.
+                    Finding time and opportunities to care for ourselves can be incredibly challenging in today&apos;s busy and demanding world. I believe therapy offers a dedicated space for self-care, providing the support and tools needed to improve this essential practice. Therapy can help individuals identify and clarify their goals, values, and the various elements that contribute to their well-being, recognizing that these aspects vary from person to person.
                   </p>
-                  
+
                   <p className="text-sm sm:text-base">
-                    I am dedicated to supporting this journey by offering active listening, 
-                    psychological knowledge, empathy, compassion, and insights into 
-                    behavioral patterns and tendencies. I hold a PsyD degree in Clinical 
-                    Psychology with eight years of experience and over 500 client sessions. 
-                    My experience spans therapy and psychological assessment in 
-                    various settings, helping clients overcome anxiety, strengthen relationships, 
-                    and heal from trauma.
+                    I am dedicated to supporting this journey by offering active listening, psychological knowledge, empathy, compassion, and insights into behavioral patterns and tendencies. I hold a PsyD degree in Clinical Psychology with eight years of experience and over 500 client sessions. My experience spans therapy and psychological assessment in various settings, helping clients overcome anxiety, strengthen relationships, and heal from trauma.
                   </p>
-                  
+
                   <p className="text-sm sm:text-base">
-                    I am committed to creating a safe, supportive space for you to thrive 
-                    through evidence-based approaches and compassionate, personalized care.
+                    I am committed to creating a safe, supportive space for you to thrive through evidence-based approaches and compassionate, personalized care.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Desktop Layout - Title and Image Side by Side */}
+            {/* Desktop Layout */}
             <div className="hidden lg:block">
               <div className="grid grid-cols-2 gap-24 xl:gap-32 items-start">
-                {/* Left Column: Title and Text */}
+                {/* Left Column */}
                 <div className="space-y-8">
                   {/* Title */}
-                  <div className={`transition-all duration-600 ease-out ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
-                    <h2 
-                      className="text-4xl text-[#A4926B] font-normal leading-tight" 
-                      style={{ 
+                  <div
+                    className={`transition-all duration-600 ease-out ${
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
+                  >
+                    <h2
+                      className="text-4xl text-[#A4926B] font-normal leading-tight"
+                      style={{
                         fontFamily: 'freight-display-pro, serif',
                         letterSpacing: '-0.02em',
-                        fontWeight: '400'
+                        fontWeight: '400',
                       }}
                     >
                       About Dr. Serena Blake
                     </h2>
                   </div>
-                  
+
                   {/* Text Content */}
-                  <div className={`space-y-8 transition-all duration-600 ease-out ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
-                    <div 
-                      className="space-y-6 text-[#A4926B] leading-[1.6]" 
-                      style={{ 
-                        fontFamily: 'freight-sans-pro, sans-serif', 
+                  <div
+                    className={`space-y-8 transition-all duration-600 ease-out ${
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
+                  >
+                    <div
+                      className="space-y-6 text-[#A4926B] leading-[1.6]"
+                      style={{
+                        fontFamily: 'freight-sans-pro, sans-serif',
                         fontSize: '14px',
                         fontWeight: '300',
-                        letterSpacing: '0.3px'
+                        letterSpacing: '0.3px',
                       }}
                     >
                       <p className="text-base">
-                        Finding time and opportunities to care for ourselves can be incredibly 
-                        challenging in today's busy and demanding world. I believe therapy 
-                        offers a dedicated space for self-care, providing the support and tools 
-                        needed to improve this essential practice. Therapy can help 
-                        individuals identify and clarify their goals, values, and the various 
-                        elements that contribute to their well-being, recognizing that these 
-                        aspects vary from person to person.
+                        Finding time and opportunities to care for ourselves can be incredibly challenging in today&apos;s busy and demanding world. I believe therapy offers a dedicated space for self-care, providing the support and tools needed to improve this essential practice. Therapy can help individuals identify and clarify their goals, values, and the various elements that contribute to their well-being, recognizing that these aspects vary from person to person.
                       </p>
-                      
+
                       <p className="text-base">
-                        I am dedicated to supporting this journey by offering active listening, 
-                        psychological knowledge, empathy, compassion, and insights into 
-                        behavioral patterns and tendencies. I hold a PsyD degree in Clinical 
-                        Psychology with eight years of experience and over 500 client sessions. 
-                        My experience spans therapy and psychological assessment in 
-                        various settings, helping clients overcome anxiety, strengthen relationships, 
-                        and heal from trauma.
+                        I am dedicated to supporting this journey by offering active listening, psychological knowledge, empathy, compassion, and insights into behavioral patterns and tendencies. I hold a PsyD degree in Clinical Psychology with eight years of experience and over 500 client sessions. My experience spans therapy and psychological assessment in various settings, helping clients overcome anxiety, strengthen relationships, and heal from trauma.
                       </p>
-                      
+
                       <p className="text-base">
-                        I am committed to creating a safe, supportive space for you to thrive 
-                        through evidence-based approaches and compassionate, personalized care.
+                        I am committed to creating a safe, supportive space for you to thrive through evidence-based approaches and compassionate, personalized care.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Right Column: Image */}
-                <div className={`relative transition-all duration-800 ease-out delay-200 ${
-                  isVisible ? 'opacity-100' : 'opacity-0'
-                }`}>
+                {/* Right Column */}
+                <div
+                  className={`relative transition-all duration-800 ease-out delay-200 ${
+                    isVisible ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
                   <div className="relative overflow-hidden w-full max-w-[440px] aspect-[2/3] ml-auto">
-                    <img
+                    <Image
                       src="/girl.jpg"
                       alt="Dr. Serena Blake"
-                      className="w-full h-full object-cover rounded-lg shadow-md"
+                      width={440}
+                      height={660}
+                      className="rounded-lg shadow-md object-cover"
                     />
                   </div>
                 </div>
@@ -313,11 +307,10 @@ function About() {
 
 
 
-
 // Quote Section
 function TherapyQuote() {
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -328,44 +321,49 @@ function TherapyQuote() {
       },
       {
         threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -50px 0px',
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSection) {
+        observer.unobserve(currentSection);
       }
     };
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="bg-[#F5F3ED] pt-40 pb-24 px-8 md:px-16"
     >
       <div className="max-w-6xl mx-auto text-center">
         {/* Top Line */}
-        <div className={`transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div
+          className={`transition-all duration-1000 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="w-full h-[2px] bg-[#A4926B] mb-16 mx-auto"></div>
         </div>
 
         {/* Main Quote */}
-        <div className={`transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <h2 
+        <div
+          className={`transition-all duration-1000 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h2
             className="text-3xl md:text-4xl lg:text-5xl text-[#A4926B] font-light leading-tight mb-16 mx-auto max-w-4xl"
-            style={{ 
+            style={{
               fontFamily: 'freight-display-pro, serif',
               lineHeight: '1.3',
-              letterSpacing: '-0.02em'
+              letterSpacing: '-0.02em',
             }}
           >
             Therapy can be a space where you invest in yourself—
@@ -375,37 +373,41 @@ function TherapyQuote() {
         </div>
 
         {/* Description Text */}
-        <div className={`transition-all duration-1000 ease-out delay-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <div 
+        <div
+          className={`transition-all duration-1000 ease-out delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <div
             className="text-[#A4926B] leading-[1.8] max-w-4xl mx-auto"
-            style={{ 
-              fontFamily: 'freight-sans-pro, sans-serif', 
+            style={{
+              fontFamily: 'freight-sans-pro, sans-serif',
               fontSize: '18px',
               fontWeight: '300',
               WebkitFontSmoothing: 'antialiased',
               MozOsxFontSmoothing: 'grayscale',
               letterSpacing: '0.3px',
-              textRendering: 'optimizeLegibility'
+              textRendering: 'optimizeLegibility',
             }}
           >
             <p className="mb-6">
-              You may be led to therapy by anxiety, depression, relationship stress, past or recent trauma, grief 
+              You may be led to therapy by anxiety, depression, relationship stress, past or recent trauma, grief{' '}
               and loss, self-esteem issues, or challenges with family, parenting, or parental relationships.
             </p>
-            
+
             <p>
-              Whatever the source of your stress, you don't have to face it alone. Therapy offers you the time 
+              Whatever the source of your stress, you don&apos;t have to face it alone. Therapy offers you the time{' '}
               and space to work toward wellness and peace.
             </p>
           </div>
         </div>
 
         {/* Bottom Line */}
-        <div className={`transition-all duration-1000 ease-out delay-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div
+          className={`transition-all duration-1000 ease-out delay-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="w-full h-[2px] bg-[#A4926B] mt-16 mx-auto"></div>
         </div>
       </div>
@@ -431,13 +433,14 @@ function AreasOfFocus() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentSection = sectionRef.current;
+    if (currentSection) {
+      observer.observe(currentSection);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentSection) {
+        observer.unobserve(currentSection);
       }
     };
   }, []);
@@ -496,9 +499,11 @@ function AreasOfFocus() {
               {/* Circular Image */}
               <div className="relative mb-8 mx-auto">
                 <div className="w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 mx-auto overflow-hidden rounded-full shadow-lg">
-                  <img
+                  <Image
                     src={area.image}
                     alt={area.title}
+                    width={320}
+                    height={320}
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   />
                 </div>
@@ -557,13 +562,14 @@ function RatesAndInsurance() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -636,6 +642,7 @@ function RatesAndInsurance() {
     </section>
   );
 }
+
 // Unable to Accept New Clients Section
 function UnableToAcceptNewClients() {
   const [isVisible, setIsVisible] = useState(false);
@@ -654,13 +661,14 @@ function UnableToAcceptNewClients() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -689,9 +697,8 @@ function UnableToAcceptNewClients() {
     </section>
   );
 }
-
 // Lake Inspirational Quote Section (Updated)
-// Lake Inspirational Quote Section (Updated with reduced height)
+
 function LakeInspirationalQuote() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
@@ -800,13 +807,15 @@ function FAQ() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current; // Copy ref to variable
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) { // Use the copied variable
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -968,13 +977,15 @@ function GetInTouch() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current; // Copy ref to variable
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (currentRef) { // Use the copied variable
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -1260,7 +1271,7 @@ function GetInTouch() {
                   fontFamily: 'freight-sans-pro, sans-serif'
                 }}
               >
-                Let us know when you're typically available for a call or consultation
+                Let us know when you&apos;re typically available for a call or consultation
               </p>
               {errors.preferredTime && (
                 <p className="mt-1 text-sm text-red-500">{errors.preferredTime}</p>
