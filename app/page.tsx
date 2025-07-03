@@ -739,11 +739,11 @@ function LakeInspirationalQuote() {
           alt="Serene lake landscape"
           className="w-full h-full object-cover"
           style={{
-            imageRendering: 'high-quality',
-            imageRendering: '-webkit-optimize-contrast',
-            imageRendering: 'crisp-edges',
-            filter: 'contrast(1.1) brightness(0.95)',
-          }}
+  imageRendering: 'crisp-edges',
+  filter: 'contrast(1.1) brightness(0.95)',
+}}
+
+
         />
       </div>
       
@@ -791,8 +791,9 @@ function LakeInspirationalQuote() {
 
 function FAQ() {
   const [isVisible, setIsVisible] = useState(false);
-  const [openItems, setOpenItems] = useState({});
-  const sectionRef = useRef(null);
+  // Type openItems as an object with number keys and boolean values
+  const [openItems, setOpenItems] = useState<{ [key: number]: boolean }>({});
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -803,61 +804,60 @@ function FAQ() {
       },
       {
         threshold: 0.2,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -50px 0px',
       }
     );
 
-    const currentRef = sectionRef.current; // Copy ref to variable
+    const currentRef = sectionRef.current;
 
     if (currentRef) {
       observer.observe(currentRef);
     }
 
     return () => {
-      if (currentRef) { // Use the copied variable
+      if (currentRef) {
         observer.unobserve(currentRef);
       }
     };
   }, []);
 
-  const toggleItem = (index) => {
-    setOpenItems(prev => ({
+  const toggleItem = (index: number) => {
+    setOpenItems((prev) => ({
       ...prev,
-      [index]: !prev[index]
+      [index]: !prev[index],
     }));
   };
 
   const faqData = [
     {
       question: "Do you accept insurance?",
-      answer: "No, but a superbill is provided for self-submission."
+      answer: "No, but a superbill is provided for self-submission.",
     },
     {
       question: "Are online sessions available?",
-      answer: "Yes—all virtual sessions via Zoom."
+      answer: "Yes—all virtual sessions via Zoom.",
     },
     {
       question: "What is your cancellation policy?",
-      answer: "24-hour notice required."
-    }
+      answer: "24-hour notice required.",
+    },
   ];
 
   return (
-    <section 
-      ref={sectionRef}
-      className="bg-white py-24 px-8 md:px-16"
-    >
+    <section ref={sectionRef} className="bg-white py-24 px-8 md:px-16">
       <div className="max-w-4xl mx-auto">
         {/* Section Title */}
-        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          <h2 
+        <div
+          className={`text-center mb-16 transition-all duration-1000 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <h2
             className="text-3xl md:text-4xl lg:text-5xl text-[#A4926B] font-normal leading-tight mb-4"
-            style={{ 
+            style={{
               fontFamily: 'freight-display-pro, serif',
               letterSpacing: '-0.02em',
-              fontWeight: '400'
+              fontWeight: '400',
             }}
           >
             Frequently Asked Questions
@@ -867,13 +867,13 @@ function FAQ() {
         {/* FAQ Items */}
         <div className="space-y-0">
           {faqData.map((item, index) => (
-            <div 
+            <div
               key={index}
               className={`border-b border-[#A4926B]/20 transition-all duration-1000 ease-out ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
-              style={{ 
-                transitionDelay: `${0.1 + index * 0.1}s`
+              style={{
+                transitionDelay: `${0.1 + index * 0.1}s`,
               }}
             >
               {/* Question Button */}
@@ -881,20 +881,20 @@ function FAQ() {
                 onClick={() => toggleItem(index)}
                 className="w-full text-left py-6 flex items-center justify-between group hover:bg-gray-50/50 transition-colors duration-200"
               >
-                <span 
+                <span
                   className="text-[#A4926B] text-lg md:text-xl font-normal pr-8 leading-relaxed group-hover:text-[#8D7E57] transition-colors duration-200"
-                  style={{ 
+                  style={{
                     fontFamily: 'freight-display-pro, serif',
                     letterSpacing: '-0.01em',
-                    fontWeight: '400'
+                    fontWeight: '400',
                   }}
                 >
                   {item.question}
                 </span>
-                
+
                 {/* Toggle Icon */}
                 <div className="flex-shrink-0">
-                  <div 
+                  <div
                     className={`w-6 h-6 rounded-full border-2 border-[#A4926B] flex items-center justify-center transition-all duration-300 ${
                       openItems[index] ? 'bg-[#A4926B] rotate-45' : 'group-hover:border-[#8D7E57]'
                     }`}
@@ -919,22 +919,22 @@ function FAQ() {
               </button>
 
               {/* Answer */}
-              <div 
+              <div
                 className={`overflow-hidden transition-all duration-500 ease-out ${
                   openItems[index] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
                 <div className="pb-6 pr-8">
-                  <p 
+                  <p
                     className="text-[#A4926B] leading-[1.7]"
-                    style={{ 
-                      fontFamily: 'freight-sans-pro, sans-serif', 
+                    style={{
+                      fontFamily: 'freight-sans-pro, sans-serif',
                       fontSize: '16px',
                       fontWeight: '300',
                       WebkitFontSmoothing: 'antialiased',
                       MozOsxFontSmoothing: 'grayscale',
                       letterSpacing: '0.3px',
-                      textRendering: 'optimizeLegibility'
+                      textRendering: 'optimizeLegibility',
                     }}
                   >
                     {item.answer}
